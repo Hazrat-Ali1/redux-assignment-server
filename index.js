@@ -35,6 +35,20 @@ const run = async () => {
 
       res.send(result);
     });
+    app.patch("/purchase/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          update: true,
+        },
+      };
+      const updatedProduct = await productCollection.updateOne(
+        filter,
+        updatedDoc
+      );
+      res.send(updatedProduct);
+    });
 
     app.delete("/product/:id", async (req, res) => {
       const id = req.params.id;
